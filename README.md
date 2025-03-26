@@ -55,3 +55,23 @@ docker run -d --name redis-stack -p 6379:6379 -p 8001:8001 -v /Users/rashmikare/
 ```
 
 The docker run command above also exposes Redis Insight on port 8001. You can use Redis Insight by pointing your browser to localhost:8001.
+
+## Cluster architecture in Redis (adiitional information)
+When deploying Redis Enterprise Software, several common topologies are available.
+
+Single-node cluster – For local development or functional testing
+
+Multi-node cluster on a single host – For a small-scale deployment that is similar to production
+
+Multi-node cluster with multiple hosts – For more predictable performance or high availability compared to single-host deployments
+
+https://redis.io/technology/redis-enterprise-cluster-architecture/
+
+Sharding is a type of database partitioning that separates large databases into smaller, faster, and more easily managed parts. These smaller parts are called data shards. With sharding or partitioning, you are not restricted to storing data on the memory of a single computer. Another advantage of sharding is being able to use the computational power of multiple cores.
+
+Redis cluster provides sharding and high availability. HA refers ti the cluster's ability to remain operational, even in the face of certain failures.
+
+For more undertsanding refer to the below videos. <br>
+https://youtu.be/N8BkmdZzxDg?si=eWseIPZbgQfzgK9P
+<br>
+https://youtu.be/3WOfXRjYnGA?si=rgPmA4C0eEmXa3o0
