@@ -102,9 +102,9 @@ a = (3, 6, 1, 8) b = (3, 2, 2, 1) a⋅b = 3x3 + 6x2 + 1x2 +8x1 = 9 + 12 + 2 + 8 
 ![Dot product](img_for_doc/dotproduct.png)
 
 
-Tyoe of Index?
-FLAT
-HNSW
+Below indexing methods are supported in Redis.
+FLAT method offers precision over speed for vector searches.
+HNSW method offers high throughput with a little compromise on accuracy.
 
 There are two supported types of vector queries in Redis: KNN and Range.Hybrid queries can work in both settings and combine elements of traditional search and VSS.
 A vector search query on a vector field allows you to find all vectors in a vector space that are close to a given vector. You can query for the k-nearest neighbors or vectors within a given radius.
