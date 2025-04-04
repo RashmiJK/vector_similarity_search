@@ -2,6 +2,8 @@
 
 In this guide we'll learn sematic search through Redis vector DB. Semantic search extends traditional database search methods to interpret the user's query and extract the documents that match the semantic meaning of the query. With the semantic search features, it is possible to query the database in natural language: it understands the semantics behind the query and returns meaningful results. 
 
+![](img_for_doc/vector_space.png)
+
 Semantic similarity is achieved by generating a vectors that represents the features of the data under analysis because the vector is a convenient data structure to compress information and is easily manageable by a computer. Vectors are lists of floating point numbers that represent features of unstructured data that play a massive role in Machine Learning.
 
 Vector search is a key function that can be performed between pairs of vectors. It is the process of finding data points that are similar to a given query vector in a set of vectors. Popular vector search uses include recommendation systems, image and video search, natural language processing, and anomaly detection. Distace metrics is used ti compute how similar ir dissimilar two vectors are.
@@ -25,6 +27,26 @@ Output embedding dimesions for the above models -
 When a machine learning model generates vectors, they embed the distinctive features of data into floating point numbers of fixed size in a compact and dense representation and translate the human-perceived semantic similarity to the vector space. The semantic similarity of two objects (two texts expressing the same concepts and overall meaning or two similar pictures) translates to the "numerical similarity" of two vectors, which is calculated as the distance between vectors, a simple mathematical operation.
 
 Comparisons between vectors occur in the same vector space, where the vectors must have the same size. Therefore, ensure that your data is embedded for ingestion and semantic search prompts using the same embedding model.
+
+## Indexing documents in Vector DB
+
+Redis maintains a secodary index over your data with a defined schema (inlcuding vector fields and metadata). 
+
+Below indexing methods are supported in Redis.
+
+1. FLAT method offers precision over speed for vector searches.
+
+2. HNSW (hierarchical navigable small world) method offers high throughput with a little compromise on accuracy. HNSW, or hierarchical navigable small world, is an approximate nearest neighbors algorithm that uses a multi-layered graph to make vector search more scalable.
+
+The lowest layer contains all data points, and each higher layer contains a subset, forming a hierarchy.
+At runtime, the search traverses the graph on each layer from top to bottom, finding the local minima before dropping to the subsequent layer.
+Choose the HNSW index type when you have larger datasets (> 1M documents) or when search performance and scalability are more important than perfect search accuracy.
+
+
+There are two supported types of vector queries in Redis: KNN (K-nearest neighbor) and vector range. Hybrid queries can work in both settings and combine elements of traditional search and VSS.
+A vector search query on a vector field allows you to find all vectors in a vector space that are close to a given vector. You can query for the k-nearest neighbors or vectors within a given radius.
+
+## Demo
 To get started, set up a Python virtual environment to isolate the required packages for your testing. This ensures a clean and manageable workspace. You can create and activate a virtual environment using the following commands:
 
 ```bash
@@ -102,12 +124,7 @@ a = (3, 6, 1, 8) b = (3, 2, 2, 1) a⋅b = 3x3 + 6x2 + 1x2 +8x1 = 9 + 12 + 2 + 8 
 ![Dot product](img_for_doc/dotproduct.png)
 
 
-Below indexing methods are supported in Redis.
-FLAT method offers precision over speed for vector searches.
-HNSW method offers high throughput with a little compromise on accuracy.
 
-There are two supported types of vector queries in Redis: KNN and Range.Hybrid queries can work in both settings and combine elements of traditional search and VSS.
-A vector search query on a vector field allows you to find all vectors in a vector space that are close to a given vector. You can query for the k-nearest neighbors or vectors within a given radius.
 
 
 Three ost popular types of distance metrics.
@@ -116,3 +133,7 @@ Some useful Redis commands to execute in redis.cli
 1. FT._LIST
 2. FT.INFO <index_name>
 3. FT.DROPINDEX <index_name>
+
+## References
+https://www.sbert.net/index.html
+https://cookbook.openai.com/examples/vector_databases/redis/redis-hybrid-query-examples#generate-openai-embeddings-and-load-documents-into-the-index
