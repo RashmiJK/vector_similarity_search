@@ -136,3 +136,6 @@ Some useful Redis commands to execute in redis.cli
 ## References
 https://www.sbert.net/index.html
 https://cookbook.openai.com/examples/vector_databases/redis/redis-hybrid-query-examples#generate-openai-embeddings-and-load-documents-into-the-index
+
+## Benchmark
+https://huggingface.co/spaces/mteb/leaderboard
